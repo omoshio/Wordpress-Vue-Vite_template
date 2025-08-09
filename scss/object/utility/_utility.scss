@@ -1,0 +1,208 @@
+@use "sass:math";
+@use "sass:map";
+
+/*
+--------------------------------------------------------------
+    index
+        root
+        base
+        reset
+        layout
+        component
+        project
+        utility
+--------------------------------------------------------------
+*/
+// 制作後はSassファイルは切り捨てて、CSSファイルを直接編集
+// 徐算は、calc使わない場合にはmath.divを使用
+
+
+//---------------------------------------------------------------------------------------
+// mixin
+//---------------------------------------------------------------------------------------
+// メディアクエリのショートカット
+@mixin mq($breakpoint: sp) {
+  @media screen and (map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+// breakpoint
+$bp_sp: 640px;
+$bp_pc: 641px;
+$breakpoints: (
+  pc: "min-width:#{$bp_pc}",
+  sp: "max-width:#{$bp_sp}",
+);
+
+//---------------------------------------------------------------------------------------
+// variable
+//---------------------------------------------------------------------------------------
+
+// fonts
+$gothic: var(--gothic);
+$serif: var(--serif);
+$color-blue: var(--color-blue);
+$color-aqua-1: var(--color-aqua-1);
+$color-aqua-2: var(--color-aqua-2);
+$color-navy: var(--color-navy);
+$color-yellow: var(--color-yellow);
+$color-yellow2: var(--color-yellow2);
+$color-yellow3: var(--color-yellow3);
+$color-red: var(--color-red);
+$color-black-1: var(--color-black-1);
+$color-black-2: var(--color-black-2);
+$color-black-3: var(--color-black-3);
+$color-cv-tel: var(--color-cv-tel);
+$color-cv-web: var(--color-cv-web);
+$color-cv-line: var(--color-cv-line);
+$color-ocher: var(--color-ocher);
+$color-white: var(--color-white);
+
+// fontsの色指定。rootやutilityなどで繰り返し処理
+$colors: (
+  blue: #0086d3,
+  aqua-1: #e7ebf3,
+  aqua-2: #5ad4eb,
+  navy: #0272b2,
+  yellow: #fff100,
+  yellow2: #fcff00,
+  yellow3: #e4ba56,
+  red: #ff4e00,
+  black-1: #4c4c4c,
+  black-2: #453f41,
+  black-3: #252525,
+  cv-tel: #7eb6ff,
+  cv-web: #e67bbb,
+  cv-line: #48cb5e,
+  ocher: #a98945,
+  white: #ffffff,
+);
+
+/*---------------------------------------------------------------------------------------
+--
+-- :root
+--
+----------------------------------------------------------------------------------------*/
+:root {
+  --gothic: 游ゴシック medium, yu gothic medium, 游ゴシック, yu gothic, メイリオ, meiryo, ヒラギノ角ゴ pro, hiragino kaku gothic pro, sans-serif;
+  --serif: YuMincho, "Yu Mincho", 游明朝, "Times New Roman", "Hiragino Mincho Pro", "ヒラギノ明朝 Pro W3", "Sawarabi Mincho", "ＭＳ Ｐ明朝", "MS PMincho", "MS 明朝", serif;
+  @each $key, $value in $colors {
+    --color-#{"" + $key} : #{$value};
+  }
+}
+
+:root {
+  @each $key, $value in $colors {
+    --color-#{"" + $key} : #{$value};
+  }
+}
+
+
+//---------------------------------------------------------------------------------------
+// function
+//---------------------------------------------------------------------------------------
+// min(__px, calc(calc(__/750) * 100vw)) のショートカット
+@function vw($vw) {
+  @return min(#{$vw}px, calc(calc(#{$vw}/750) * #{100vw}));
+}
+// max(-__px, calc( -1 * (calc(__/750) * 100vw))) のショートカット ※ネガティブの「-n」
+@function vw-n($vw-n) {
+  @return max(-#{$vw-n}px, calc( -1 * (calc(#{$vw-n}/750) * #{100vw})));
+}
+
+/*---------------------------------------------------------------------------------------
+--
+-- utility
+--
+----------------------------------------------------------------------------------------*/
+
+/* .mb○○-flex */
+$mb: 0;
+@while $mb < 151 {
+  .u-mb#{$mb} { margin-bottom: vw($mb) !important; }
+  $mb: $mb + 5;
+}
+/* .mt○○-flex */
+$mt: 0;
+@while $mt < 151 {
+  .u-mt#{$mt} { margin-top: vw($mt) !important; }
+  $mt: $mt + 5;
+}
+/* .ml○○-flex */
+$ml: 0;
+@while $ml < 51 {
+  .u-ml#{$ml} { margin-left: vw($ml) !important; }
+  $ml: $ml + 5;
+}
+/* .mr○○-flex */
+$mr: 0;
+@while $mr < 51 {
+  .u-mr#{$mr} { margin-right: vw($mr) !important; }
+  $mr: $mr + 5;
+}
+/* .pt○○-flex */
+$pt: 0;
+@while $pt < 151 {
+  .u-pt#{$pt} { padding-top: vw($pt) !important; }
+  $pt: $pt + 5;
+}
+/* .pb○○-flex */
+$pb: 0;
+@while $pb < 151 {
+  .u-pb#{$pb} { padding-bottom: vw($pb) !important; }
+  $pb: $pb + 5;
+}
+/* .pl○○-flex */
+$pl: 0;
+@while $pl < 51 {
+  .u-pl#{$pl} { padding-left: vw($pl) !important; }
+  $pl: $pl + 5;
+}
+/* .pr○○-flex */
+$pr: 0;
+@while $pr < 51 {
+  .u-pr#{$pr} { padding-right: vw($pr) !important; }
+  $pr: $pr + 5;
+}
+
+/* .u-fsz--○○ */
+@for $fsz from 15 through 60 {
+  .u-fsz--#{$fsz} {font-size: vw($fsz) !important;}
+}
+
+/* line-height */
+$lh: 100;
+@while $lh < 201 {
+  .u-lh--#{$lh} { line-height: math.div($lh, 100) !important; }
+  $lh: $lh + 5;
+}
+
+/* fonts */
+.u-bold {
+  font-weight: bold !important;
+}
+
+@each $key, $value in $colors {
+  .u-color--#{"" + $key} { color: #{$value} !important; }
+}
+
+/* none */
+@include mq(pc) {
+  .pc_none { display: none !important; } 
+}
+@include mq(sp) {
+  .sp_none { display: none !important; }
+}
+
+/* test */
+@include mq() {
+  .test{
+    color: red;
+  }
+
+  .testtest {
+    color: blue;
+    font-size: vw(16);
+  }
+}
