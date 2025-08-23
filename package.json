@@ -18,5 +18,8 @@
     "gulp-sass": "^6.0.1",
     "sass": "^1.89.2",
     "vite": "^7.0.5"
+  },
+  "dependencies": {
+    "vue3-marquee": "^4.2.2"
   }
 }
