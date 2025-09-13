@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   root: path.resolve(__dirname, 'frontend'),
-  base: '', // ← ここを空にする
+  base: '/wp-content/themes/WordPress_Vue_Vite_template/dist/',
   plugins: [vue()],
   publicDir: path.resolve(__dirname, 'frontend/public'),
   build: {

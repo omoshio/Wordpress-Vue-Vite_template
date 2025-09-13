@@ -1,13 +1,14 @@
 <template>
     <div>
-      <Slider />
+        <Hello />
+        <Slider />
+        <Tabs />
     </div>
-  </template>
+</template>
   
-  <script>
-  import Slider from './components/Slider.vue'
-  export default {
-    components: { Slider }
-  }
-  </script>
+<script setup>
+    import Slider from './components/Hello.vue'
+    import Hello from './components/Slider.vue'
+    import Tabs from './components/Tabs.vue'
+</script>
   

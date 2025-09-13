@@ -12,9 +12,9 @@
 import { Vue3Marquee } from 'vue3-marquee'
 
   const images = [
-    '/images/img01.png',
-    '/images/img02.png',
-    '/images/img03.png'
+    '/wp-content/themes/WordPress -Vue -Vite_template/dist/images/img01.png',
+    '/wp-content/themes/WordPress -Vue -Vite_template/dist//images/img02.png',
+    '/wp-content/themes/WordPress -Vue -Vite_template/dist/images/img03.png'
   ]
   </script>
   
