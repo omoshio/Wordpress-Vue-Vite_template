@@ -1,6 +1,6 @@
-const { src, dest, watch } = require('gulp');
+const { src, dest, watch, series } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
-const autoprefixer = require('gulp-autoprefixer').default;  // ← ここを変更
+const autoprefixer = require('gulp-autoprefixer').default;
 const cleanCSS = require('gulp-clean-css');
 
 function styles() {
@@ -8,9 +8,11 @@ function styles() {
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(cleanCSS())
-    .pipe(dest('css'));
+    .pipe(dest('assets/css'));
 }
 
-exports.default = () => {
+function watchFiles() {
   watch('scss/**/*.scss', styles);
-};
+}
+
+exports.default = series(styles, watchFiles);
